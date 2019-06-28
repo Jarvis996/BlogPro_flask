@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0 auto;
+            text-align: center;
+            list-style: none;
+        }
+        img{
+            height: 160px;
+            width: 160px;
+            float: right;
+        }
+        ul{
+            width: 800px;
+            {#height: 800px;#}
+            border: 2px solid black;
+            text-align: center;
+            background-color: orange;
+            padding-inline-start: 0;
+        }
+        li{
+            padding: 15px;
+            {#height: 100px;#}
+            width: 750px;
+            border: 1px solid whitesmoke;
+        }
+        </style>
+</head>
+<body>
+
+    <ul>
+        <a href="{{ url_for('blog.index') }}"><h2 style="float: left">返回我的博客</h2></a>
+        <h2>分类:{{ article.name }}({{ article.articles | count }})</h2>
+        {% for article in articles  %}
+        <br>
+        <li>
+            <h3>{{ article.title }}</h3><br>
+            <p style="text-align: left; height: 200px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ article.content | safe }}</p>
+        </li>
+        <br><br>
+        <hr>
+        {% endfor %}
+    </ul>
+
+
+
+</body>
+</html>
