@@ -129,6 +129,7 @@ def del_category(article_class_id):
 @blue.route('/modify_category/<int:article_class_id>/',methods=['get', 'post'])
 def modify_category(article_class_id):
     article_class = ArticleClass.query.get(article_class_id) # 获取该id名的文章栏目，传到页面
+    article_classs = ArticleClass.query.all() # 获取所有
     if request.method == 'POST':
         article_class = ArticleClass.query.get(article_class_id) # 获得这个id的栏目对象
         print(article_class.name)
@@ -139,7 +140,7 @@ def modify_category(article_class_id):
             db.session.rollback()
             db.session.flush()
         return redirect(url_for('blog.add_category'))
-    return render_template('/admin/update_category.html', article_class=article_class)
+    return render_template('/admin/update_category.html', article_class=article_class,article_classs=article_classs)
 
 
 # 查看对应栏目
@@ -167,7 +168,6 @@ def add_article():
         article.title = request.form.get('art_title')
         article.content = request.form.get('art_content')
         article.date = datetime.datetime.now()
-        # article.Introduction = article.content[0:20]
         article.picture = request.form.get('art_picture')
         article.article_class = request.form.get('article_class')
         try:
@@ -220,11 +220,6 @@ def modify_article(article_id):
 def my_picture():
     articles = Article.query.all()
     return render_template('/home/share.html', articles=articles)
-
-# # 可替换的功能界面
-# @blue.route('/non_url/')
-# def non_url():
-#     return render_template('/home/non_url.html')
 
 
 # ==================密码加密函数(暂时未用)=================
