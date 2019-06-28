@@ -149,8 +149,8 @@ def article_class(classid):
         classid = 1
     articles = Article.query.filter_by(article_class=classid)
     article = ArticleClass.query.get(classid)
-    # num = articles.count()
-    return render_template("home/article_class.html", articles=articles, article=article)
+    article_classs = ArticleClass.query.all()  # 文章分类对象集
+    return render_template("home/list.html", articles=articles, article=article,article_classs=article_classs)
 
 # 管理文章
 @blue.route('/notice/')

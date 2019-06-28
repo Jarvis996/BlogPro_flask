@@ -581,7 +581,7 @@
             this.list = document.createElement('ul');
             this.clearFloat = document.createElement('li');
 
-            domUtils.addClass(this.list, 'list');
+            domUtils.addClass(this.list, 'list.html');
             domUtils.addClass(this.clearFloat, 'clearFloat');
 
             this.list.appendChild(this.clearFloat);
@@ -641,8 +641,8 @@
                         try {
                             var json = eval('(' + r.responseText + ')');
                             if (json.state == 'SUCCESS') {
-                                _this.pushData(json.list);
-                                _this.listIndex = parseInt(json.start) + parseInt(json.list.length);
+                                _this.pushData(json.list1);
+                                _this.listIndex = parseInt(json.start) + parseInt(json.list1.length);
                                 if(_this.listIndex >= json.total) {
                                     _this.listEnd = true;
                                 }
