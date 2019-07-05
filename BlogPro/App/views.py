@@ -103,7 +103,7 @@ def add_category():
         # for i in article_classs:
         #     art = Article.query.filter_by(article_class=i.id).count()
         #     i.num = art  # 将文章分类统计输入到数据库中
-        return render_template('/admin/category.html', article_classs=article_classs)
+        return render_template('admin/category.html', article_classs=article_classs)
 
 
 # 删除栏目
@@ -140,7 +140,7 @@ def modify_category(article_class_id):
             db.session.rollback()
             db.session.flush()
         return redirect(url_for('blog.add_category'))
-    return render_template('/admin/update_category.html', article_class=article_class,article_classs=article_classs)
+    return render_template('admin/update_category.html', article_class=article_class, article_classs=article_classs)
 
 
 # 查看对应栏目
@@ -151,13 +151,13 @@ def article_class(classid):
     articles = Article.query.filter_by(article_class=classid)
     article = ArticleClass.query.get(classid)
     article_classs = ArticleClass.query.all()  # 文章分类对象集
-    return render_template("home/list.html", articles=articles, article=article,article_classs=article_classs)
+    return render_template("home/list.html", articles=articles, article=article, article_classs=article_classs)
 
 # 管理文章
 @blue.route('/notice/')
 def notice():
     articles = Article.query.all()
-    return render_template('/admin/notice.html', articles=articles)
+    return render_template('admin/notice.html', articles=articles)
 
 # 添加文章
 @blue.route('/add_article/', methods=['get', 'post'])
@@ -177,7 +177,10 @@ def add_article():
             db.session.rollback()
             db.session.flush()
             return '添加文章失败'
-    return render_template('admin/add_article.html', article_classs=article_classs)
+    if request.method == 'GET':
+        return render_template('admin/add_article.html', article_classs=article_classs)
+    return redirect(url_for('blog.notice'))
+
 
 # 删除文章
 @blue.route('/del_article/<article_id>/')
@@ -219,7 +222,7 @@ def modify_article(article_id):
 @blue.route('/my_picture/')
 def my_picture():
     articles = Article.query.all()
-    return render_template('/home/share.html', articles=articles)
+    return render_template('home/share.html', articles=articles)
 
 
 # ==================密码加密函数(暂时未用)=================
